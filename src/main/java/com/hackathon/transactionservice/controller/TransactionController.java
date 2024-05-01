@@ -50,7 +50,7 @@ public class TransactionController {
             return new ResponseEntity<>("Account created successfully ", HttpStatus.CREATED);
         }
 
-        return new ResponseEntity<>("Account not created", HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>("Account already exists with same account number "+ account.getAccountNumber(), HttpStatus.BAD_REQUEST);
     }
 
     @PutMapping("/deposit")

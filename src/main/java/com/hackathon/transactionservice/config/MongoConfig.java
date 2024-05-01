@@ -7,7 +7,6 @@ import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientSettings;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
-import org.bson.codecs.configuration.CodecRegistries;
 import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.codecs.pojo.PojoCodecProvider;
 import org.springframework.beans.factory.annotation.Value;
@@ -22,8 +21,7 @@ import org.springframework.data.mongodb.core.convert.MongoCustomConversions;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
-import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
+import static org.bson.codecs.configuration.CodecRegistries.*;
 
 @Configuration
 public class MongoConfig extends AbstractMongoClientConfiguration {
@@ -50,7 +48,7 @@ public class MongoConfig extends AbstractMongoClientConfiguration {
     @Bean
     public MongoClient mongoClient() {
         final ConnectionString connectionString = new ConnectionString(uri);
-        CodecRegistry codecRegistry = fromRegistries(CodecRegistries.fromCodecs(
+        CodecRegistry codecRegistry = fromRegistries(fromCodecs(
                 new OffsetDateTimeCodec()), MongoClientSettings.getDefaultCodecRegistry(),
                 fromProviders(PojoCodecProvider.builder().automatic(true).build()));
 
